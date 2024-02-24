@@ -38,6 +38,8 @@ dependencies:
 
   flutter_svg: ^2.0.9
 
+  device_preview: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -62,6 +64,7 @@ flutter:
 
   assets:
     - assets/images/onboard/
+    - assets/images/login/
     - assets/icons/
 
   fonts:

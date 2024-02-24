@@ -37,13 +37,14 @@ extension TextSizeExtension on TextSize {
   }
 }
 
-Widget boldText(String txt, { double size = 12, TextAlign align  = TextAlign.start}){
+Widget boldText(String txt, { double size = 12, TextAlign align  = TextAlign.start, Color color = Colors.black}){
   return Text(
     txt,
     textAlign: align,
     style: TextStyle(
       fontSize: size,
       fontWeight: FontWeight.w700,
+      color: color,
     ),
   );
 }
@@ -70,13 +71,14 @@ Widget mediumText(String txt, { double size = 12, TextAlign align  = TextAlign.j
   );
 }
 
-Widget regularText(String txt, { double size = 12, TextAlign align  = TextAlign.start}){
+Widget regularText(String txt, { double size = 12, TextAlign align  = TextAlign.start, Color color = Colors.black}){
   return Text(
     txt,
     textAlign: align,
     style: TextStyle(
       fontSize: size,
       fontWeight: FontWeight.w400,
+      color: color,
     ),
   );
 }

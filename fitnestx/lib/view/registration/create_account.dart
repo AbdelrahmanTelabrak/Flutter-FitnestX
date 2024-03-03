@@ -1,3 +1,5 @@
+import 'package:fitnestx/model/user/account_data.dart';
+import 'package:fitnestx/view/registration/complete_profile.dart';
 import 'package:fitnestx/view/sign-in/login_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,11 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isChecked = false;
+
+  final _fNameController = TextEditingController();
+  final _lNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Column(
         children: [
           basicFormField(
+            controller: _fNameController,
             hint: 'First Name',
             iconPath: 'assets/icons/profile.svg',
             validator: (value) {
@@ -76,7 +84,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           const SizedBox(height: 15),
           basicFormField(
-            hint: 'Email',
+            controller: _lNameController,
+            hint: 'Last Name',
             iconPath: 'assets/icons/profile.svg',
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -87,6 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           const SizedBox(height: 15),
           basicFormField(
+            controller: _emailController,
             hint: 'Email',
             iconPath: 'assets/icons/inbox.svg',
             validator: (value) {
@@ -104,6 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           const SizedBox(height: 15),
           PasswordFormField(
+            controller: _passwordController,
             hint: 'Password',
             iconPath: 'assets/icons/lock.svg',
             validator: (value) {
@@ -205,10 +216,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: boldText('Register',
               size: 18, color: Colors.white, align: TextAlign.center),
           onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              /// TODO: Check the Database/Server for the credentials.
+            if (isChecked) {
+              if (_formKey.currentState!.validate()) {
+                /// TODO: Add these credentials to the Database/Server.
+                AccountData accData = AccountData(_fNameController.value.text,
+                    _lNameController.value.text, _emailController.value.text,
+                    _passwordController.value.text);
+                print(accData.toString());
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Processing Data') ),
+                );
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileCompletion()));
+              }
+            }
+            else{
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Processing Data')),
+                const SnackBar(content: Text('You need to accept out Privacy Policy and Term of Use')),
               );
             }
             /// if( isChecked )

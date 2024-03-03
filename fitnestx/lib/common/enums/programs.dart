@@ -1,0 +1,1 @@
+enum Goals{improveShape, leanTone, loseFat}

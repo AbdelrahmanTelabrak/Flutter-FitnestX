@@ -2,11 +2,19 @@ import 'package:fitnestx/widgets/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-Widget basicFormField({required String hint, TextEditingController? controller, required String iconPath,
-  required FormFieldValidator validator}){
+Widget basicFormField(
+    {required String hint,
+    TextEditingController? controller,
+    required String iconPath,
+    required FormFieldValidator validator,
+    bool enabled = true,
+      TextInputType keyboardType = TextInputType.text}) {
   return TextFormField(
     maxLines: 1,
     validator: validator,
+    controller: controller,
+    enabled: enabled,
+    keyboardType: keyboardType,
     decoration: InputDecoration(
       contentPadding: const EdgeInsets.symmetric(vertical: 15),
       hintText: hint,
@@ -17,8 +25,7 @@ Widget basicFormField({required String hint, TextEditingController? controller, 
       filled: true,
       fillColor: const Color(0xffF7F8F8),
       border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide.none),
+          borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
       prefixIcon: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SvgPicture.asset(
@@ -31,6 +38,39 @@ Widget basicFormField({required String hint, TextEditingController? controller, 
     ),
   );
 }
+//
+// Widget dropDownFormField({required List<DropdownMenuItem> items, required dynamic value, }){
+//   return DropdownButtonFormField(
+//     items: items,
+//     value: value,
+//     onChanged: (value) {
+//       setState(() {
+//         _genderValue = value;
+//       });
+//     } ,
+//     decoration: InputDecoration(
+//       contentPadding: const EdgeInsets.only(top: 15, bottom: 15, right: 10),
+//       hintText: 'Choose Gender',
+//       hintStyle: TextStyle(
+//         fontSize: TextSize.smallText.value,
+//         color: const Color(0xffADA4A5),
+//       ),
+//       filled: true,
+//       fillColor: const Color(0xffF7F8F8),
+//       border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
+//       prefixIcon: Padding(
+//         padding: const EdgeInsets.all(15.0),
+//         child: SvgPicture.asset(
+//           'assets/icons/profile2.svg',
+//           width: 18,
+//           height: 18,
+//         ),
+//       ),
+//     ),
+//   );
+// }
+
 
 class PasswordFormField extends StatefulWidget {
   final String hint;
@@ -51,7 +91,6 @@ class PasswordFormField extends StatefulWidget {
 }
 
 class _PasswordFormFieldState extends State<PasswordFormField> {
-
   bool _obscureText = true;
 
   @override
@@ -60,6 +99,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       obscureText: _obscureText,
       maxLines: 1,
       validator: widget.validator,
+      controller: widget.controller,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 15),
         hintText: widget.hint,
@@ -93,4 +133,3 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
     );
   }
 }
-

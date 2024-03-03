@@ -60,13 +60,14 @@ Widget semiBoldText(String txt, { double size = 12, TextAlign align  = TextAlign
   );
 }
 
-Widget mediumText(String txt, { double size = 12, TextAlign align  = TextAlign.justify}){
+Widget mediumText(String txt, { double size = 12, TextAlign align  = TextAlign.justify, Color color = Colors.black}){
   return Text(
     txt,
     textAlign: align,
     style: TextStyle(
       fontSize: size,
       fontWeight: FontWeight.w500,
+      color: color,
     ),
   );
 }

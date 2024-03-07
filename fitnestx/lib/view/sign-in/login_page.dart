@@ -1,4 +1,4 @@
-import 'package:fitnestx/view/registeration/create_account.dart';
+import 'package:fitnestx/view/registration/create_account.dart';
 import 'package:fitnestx/view/sign-in/welcome_screen.dart';
 import 'package:fitnestx/widgets/buttons.dart';
 import 'package:fitnestx/widgets/textfields.dart';

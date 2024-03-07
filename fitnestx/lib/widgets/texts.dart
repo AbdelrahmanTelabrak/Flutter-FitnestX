@@ -49,13 +49,14 @@ Widget boldText(String txt, { double size = 12, TextAlign align  = TextAlign.sta
   );
 }
 
-Widget semiBoldText(String txt, { double size = 12, TextAlign align  = TextAlign.justify}){
+Widget semiBoldText(String txt, { double size = 12, TextAlign align  = TextAlign.justify, Color color = Colors.black}){
   return Text(
     txt,
     textAlign: align,
     style: TextStyle(
       fontSize: size,
       fontWeight: FontWeight.w600,
+      color: color,
     ),
   );
 }
@@ -72,7 +73,7 @@ Widget mediumText(String txt, { double size = 12, TextAlign align  = TextAlign.j
   );
 }
 
-Widget regularText(String txt, { double size = 12, TextAlign align  = TextAlign.start, Color color = Colors.black}){
+Widget regularText(String txt, { double? size = 12, TextAlign align  = TextAlign.start, Color color = Colors.black}){
   return Text(
     txt,
     textAlign: align,

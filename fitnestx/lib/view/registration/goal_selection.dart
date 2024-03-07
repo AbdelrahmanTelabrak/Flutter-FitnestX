@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitnestx/view/registration/goal_pages/goal.dart';
 import 'package:fitnestx/view/sign-in/welcome_screen.dart';
-import 'package:fitnestx/viewmodel/registration/goal_selection_viewmodel.dart';
 import 'package:fitnestx/widgets/buttons.dart';
 import 'package:fitnestx/widgets/texts.dart';
 import 'package:flutter/material.dart';
+import '../../viewmodel/authentication/registration/goal_selection_viewmodel.dart';
 
 class GoalSelectionActivity extends StatelessWidget {
   GoalSelectionActivity({super.key});

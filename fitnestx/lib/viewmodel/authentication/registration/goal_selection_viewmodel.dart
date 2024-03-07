@@ -1,5 +1,5 @@
-import '../../common/enums/programs.dart';
-import '../../model/goal_model.dart';
+import '../../../common/enums/programs.dart';
+import '../../../model/goal_model.dart';
 
 class GoalSelectionViewModel {
   List<GoalModel>? _goals;

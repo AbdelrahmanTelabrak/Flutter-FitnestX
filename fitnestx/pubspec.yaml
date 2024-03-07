@@ -40,6 +40,12 @@ dependencies:
 
   device_preview: ^1.1.0
 
+  syncfusion_flutter_datepicker: ^23.2.7
+
+  fluttertoast: ^8.2.4
+
+  carousel_slider: ^4.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,6 +71,7 @@ flutter:
   assets:
     - assets/images/onboard/
     - assets/images/login/
+    - assets/images/registration/
     - assets/icons/
 
   fonts:

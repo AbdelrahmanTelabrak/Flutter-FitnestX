@@ -1,6 +1,7 @@
 import 'package:fitnestx/model/user/account_data.dart';
 import 'package:fitnestx/view/registration/complete_profile.dart';
 import 'package:fitnestx/view/sign-in/login_page.dart';
+import 'package:fitnestx/viewmodel/authentication/registration/register_viewmodel.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -16,13 +17,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final RegisterViewModel _viewModel = RegisterViewModel();
   bool isChecked = false;
-
-  final _fNameController = TextEditingController();
-  final _lNameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,61 +64,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Form _form() {
     return Form(
-      key: _formKey,
+      key: _viewModel.formKey,
       child: Column(
         children: [
           basicFormField(
-            controller: _fNameController,
             hint: 'First Name',
             iconPath: 'assets/icons/profile.svg',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '';
-              }
-              return null;
-            },
+            validator: _viewModel.validateNames,
+            onChanged: _viewModel.updateFName,
           ),
           const SizedBox(height: 15),
           basicFormField(
-            controller: _lNameController,
             hint: 'Last Name',
             iconPath: 'assets/icons/profile.svg',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '';
-              }
-              return null;
-            },
+            validator: _viewModel.validateNames,
+            onChanged: _viewModel.updateLName,
           ),
           const SizedBox(height: 15),
           basicFormField(
-            controller: _emailController,
             hint: 'Email',
             iconPath: 'assets/icons/inbox.svg',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '';
-              } else {
-                String pattern = r'^[\w-\.]+@([\w-]+\.)[\w-]{2,4}$';
-                RegExp regex = RegExp(pattern);
-                if (!regex.hasMatch(value)) {
-                  return 'Incorrect email format...';
-                }
-                return null;
-              }
-            },
+            validator: _viewModel.validateEmail,
+            onChanged: _viewModel.updateEmail,
           ),
           const SizedBox(height: 15),
           PasswordFormField(
-            controller: _passwordController,
             hint: 'Password',
             iconPath: 'assets/icons/lock.svg',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '';
-              }
-              return null;
-            },
+            validator: _viewModel.validatePassword,
+            onChanged: _viewModel.updatePassword,
           ),
         ],
       ),
@@ -217,17 +187,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               size: 18, color: Colors.white, align: TextAlign.center),
           onPressed: () {
             if (isChecked) {
-              if (_formKey.currentState!.validate()) {
-                /// TODO: Add these credentials to the Database/Server.
-                AccountData accData = AccountData(_fNameController.value.text,
-                    _lNameController.value.text, _emailController.value.text,
-                    _passwordController.value.text);
-                print(accData.toString());
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Processing Data') ),
-                );
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileCompletion()));
-              }
+              _viewModel.register(context);
             }
             else{
               ScaffoldMessenger.of(context).showSnackBar(

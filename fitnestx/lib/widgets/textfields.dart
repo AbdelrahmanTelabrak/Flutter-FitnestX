@@ -8,10 +8,12 @@ Widget basicFormField(
     required String iconPath,
     required FormFieldValidator validator,
     bool enabled = true,
+      Function(String)? onChanged,
       TextInputType keyboardType = TextInputType.text}) {
   return TextFormField(
     maxLines: 1,
     validator: validator,
+    onChanged: onChanged,
     controller: controller,
     enabled: enabled,
     keyboardType: keyboardType,
@@ -77,6 +79,7 @@ class PasswordFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String iconPath;
   final FormFieldValidator<String>? validator;
+  final Function(String)? onChanged;
 
   const PasswordFormField({
     Key? key,
@@ -84,6 +87,7 @@ class PasswordFormField extends StatefulWidget {
     this.controller,
     required this.iconPath,
     required this.validator,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -99,6 +103,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       obscureText: _obscureText,
       maxLines: 1,
       validator: widget.validator,
+      onChanged: widget.onChanged,
       controller: widget.controller,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 15),

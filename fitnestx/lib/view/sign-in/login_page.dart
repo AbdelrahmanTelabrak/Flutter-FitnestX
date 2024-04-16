@@ -1,5 +1,6 @@
 import 'package:fitnestx/view/registration/create_account.dart';
 import 'package:fitnestx/view/sign-in/welcome_screen.dart';
+import 'package:fitnestx/viewmodel/authentication/login/login_viewmodel.dart';
 import 'package:fitnestx/widgets/buttons.dart';
 import 'package:fitnestx/widgets/textfields.dart';
 import 'package:fitnestx/widgets/texts.dart';
@@ -15,7 +16,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
+  final _loginViewModel = LoginViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -71,36 +72,21 @@ class _LoginPageState extends State<LoginPage> {
 
   Form _form() {
     return Form(
-      key: _formKey,
+      key: _loginViewModel.formKey,
       child: Column(
         children: [
           basicFormField(
             hint: 'Email',
             iconPath: 'assets/icons/inbox.svg',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your email';
-              }
-              else{
-                String pattern = r'^[\w-\.]+@([\w-]+\.)[\w-]{2,4}$';
-                RegExp regex = RegExp(pattern);
-                if (!regex.hasMatch(value)) {
-                  return 'Incorrect email format..';
-                }
-                return null;
-              }
-            },
+            validator: _loginViewModel.validateEmail,
+            onChanged: _loginViewModel.updateEmail,
           ),
           const SizedBox(height: 15),
           PasswordFormField(
             hint: 'Password',
             iconPath: 'assets/icons/lock.svg',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '  Please enter your Password';
-              }
-              return null;
-            },
+            validator: _loginViewModel.validatePassword,
+            onChanged: _loginViewModel.updatePassword,
           ),
         ],
       ),
@@ -119,15 +105,7 @@ class _LoginPageState extends State<LoginPage> {
               boldText('Login', size: 18, color: Colors.white),
             ],
           ),
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              /// TODO: Check the Database/Server for the credentials.
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Processing Data')),
-              );
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen(name: 'Abdelrahman')));
-            }
-          },
+          onPressed: () {_loginViewModel.login(context);},
         ),
         const SizedBox(height: 20),
         ///====== Divider ======
@@ -165,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
         GestureDetector(
           onTap: () {
             /// TODO: Navigate to Registration page
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterScreen()));
+            Navigator.pushNamed(context, '/register');
           },
           child: RichText(
             text: const TextSpan(

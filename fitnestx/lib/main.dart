@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:fitnestx/common/router.dart';
 import 'package:fitnestx/view/onboard/onboard_screen.dart';
 import 'package:fitnestx/view/registration/complete_profile.dart';
 import 'package:fitnestx/view/registration/goal_selection.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: GoalSelectionActivity(),
+      routes: router(),
+      home: LoginPage(),
     );
   }
 
